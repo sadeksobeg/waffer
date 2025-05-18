@@ -1,0 +1,253 @@
+[debug] [2025-05-12T18:03:25.075Z] ----------------------------------------------------------------------
+[debug] [2025-05-12T18:03:25.077Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\ASUS\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only functions
+[debug] [2025-05-12T18:03:25.077Z] CLI Version:   14.3.1
+[debug] [2025-05-12T18:03:25.078Z] Platform:      win32
+[debug] [2025-05-12T18:03:25.078Z] Node Version:  v22.14.0
+[debug] [2025-05-12T18:03:25.078Z] Time:          Mon May 12 2025 21:03:25 GMT+0300 (GMT+03:00)
+[debug] [2025-05-12T18:03:25.078Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-05-12T18:03:25.079Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2025-05-12T18:03:25.271Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-05-12T18:03:25.271Z] > authorizing via signed-in user (sadeksobeg@gmail.com)
+[info] i  emulators: Starting emulators: functions {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions"}}
+[debug] [2025-05-12T18:03:25.277Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-05-12T18:03:25.277Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-05-12T18:03:25.280Z] [hub] writing locator at C:\Users\ASUS\AppData\Local\Temp\hub-waffer-1b16d.json
+[debug] [2025-05-12T18:03:25.293Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-05-12T18:03:25.293Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-05-12T18:03:25.293Z] [tasks] Cloud Tasks Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-05-12T18:03:25.293Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}],"tasks":[{"address":"127.0.0.1","family":"IPv4","port":9499}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: apphosting, auth, firestore, database, hosting, pubsub, storage, dataconnect {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mapphosting, auth, firestore, database, hosting, pubsub, storage, dataconnect\u001b[22m"}}
+[debug] [2025-05-12T18:03:25.605Z] defaultcredentials: writing to file C:\Users\ASUS\AppData\Roaming\firebase\sadeksobeg_gmail_com_application_default_credentials.json
+[debug] [2025-05-12T18:03:25.606Z] Setting GAC to C:\Users\ASUS\AppData\Roaming\firebase\sadeksobeg_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\ASUS\\AppData\\Roaming\\firebase\\sadeksobeg_gmail_com_application_default_credentials.json"}}
+[debug] [2025-05-12T18:03:25.607Z] Checked if tokens are valid: false, expires at: 1747061672658
+[debug] [2025-05-12T18:03:25.607Z] Checked if tokens are valid: false, expires at: 1747061672658
+[debug] [2025-05-12T18:03:25.607Z] > refreshing access token with scopes: []
+[debug] [2025-05-12T18:03:25.607Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-05-12T18:03:25.607Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-05-12T18:03:26.854Z] *** [apiv2] error from fetch(https://firebase-public.firebaseio.com/cli.json, {"headers":{},"method":"GET"}): FetchError: request to https://firebase-public.firebaseio.com/cli.json failed, reason: Client network socket disconnected before secure TLS connection was established
+[warn] !  Unable to fetch the CLI MOTD and remote config. This is not a fatal error, but may indicate an issue with your network connection. 
+[debug] [2025-05-12T18:03:26.855Z] Failed to fetch MOTD FirebaseError: Failed to make request to https://firebase-public.firebaseio.com/cli.json
+[debug] [2025-05-12T18:03:27.674Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-05-12T18:03:27.674Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-05-12T18:03:27.680Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/waffer-1b16d/adminSdkConfig [none]
+[debug] [2025-05-12T18:03:29.117Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/waffer-1b16d/adminSdkConfig 403
+[debug] [2025-05-12T18:03:29.117Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/waffer-1b16d/adminSdkConfig "<!DOCTYPE html>\n<html lang=en>\n  <meta charset=utf-8>\n  <meta name=viewport content=\"initial-scale=1, minimum-scale=1, width=device-width\">\n  <title>Error 403 (Forbidden)!!1</title>\n  <style>\n    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}\n  </style>\n  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>\n  <p><b>403.</b> <ins>That’s an error.</ins>\n  <p>Your client does not have permission to get URL <code>/v1beta1/projects/waffer-1b16d/adminSdkConfig</code> from this server.  <ins>That’s all we know.</ins>\n"
+[debug] [2025-05-12T18:03:29.118Z] Failed to get Admin SDK config for waffer-1b16d, falling back to cache Failed to get Admin SDK for Firebase project waffer-1b16d. Please make sure the project exists and your account has permission to access it. {"name":"FirebaseError","children":[],"exit":2,"message":"Failed to get Admin SDK for Firebase project waffer-1b16d. Please make sure the project exists and your account has permission to access it.","original":{"name":"FirebaseError","children":[],"exit":1,"message":"Unable to parse JSON: SyntaxError: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON","status":500},"status":500}
+[warn] !  functions: Unable to fetch project Admin SDK configuration, Admin SDK behavior in Cloud Functions emulator may be incorrect. {"metadata":{"emulator":{"name":"functions"},"message":"Unable to fetch project Admin SDK configuration, Admin SDK behavior in Cloud Functions emulator may be incorrect."}}
+[info] i  ui: downloading ui-v1.15.0.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.15.0.zip..."}}
+[debug] [2025-05-12T18:03:29.132Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.15.0.zip 
+[debug] [2025-05-12T18:03:29.787Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.15.0.zip 200
+[debug] [2025-05-12T18:03:29.787Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.15.0.zip [stream]
+[debug] [2025-05-12T18:03:36.293Z] Data is 3538469
+[debug] [2025-05-12T18:03:36.293Z] [unzip] Entry: client/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-05-12T18:03:36.293Z] [unzip] Processing entry: client\
+[debug] [2025-05-12T18:03:36.293Z] [unzip] mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\
+[debug] [2025-05-12T18:03:36.294Z] [unzip] Entry: client/favicon-16x16.png (compressed_size=293 bytes, uncompressed_size=293 bytes)
+[debug] [2025-05-12T18:03:36.294Z] [unzip] Processing entry: client\favicon-16x16.png
+[debug] [2025-05-12T18:03:36.294Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.294Z] [unzip] Writing file: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\favicon-16x16.png
+[debug] [2025-05-12T18:03:36.295Z] [unzip] Entry: client/safari-pinned-tab.svg (compressed_size=1433 bytes, uncompressed_size=2611 bytes)
+[debug] [2025-05-12T18:03:36.295Z] [unzip] Processing entry: client\safari-pinned-tab.svg
+[debug] [2025-05-12T18:03:36.295Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.295Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\safari-pinned-tab.svg
+[debug] [2025-05-12T18:03:36.297Z] [unzip] Entry: client/favicon.ico (compressed_size=2933 bytes, uncompressed_size=13294 bytes)
+[debug] [2025-05-12T18:03:36.297Z] [unzip] Processing entry: client\favicon.ico
+[debug] [2025-05-12T18:03:36.297Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.297Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\favicon.ico
+[debug] [2025-05-12T18:03:36.298Z] [unzip] Entry: client/index.html (compressed_size=1364 bytes, uncompressed_size=3071 bytes)
+[debug] [2025-05-12T18:03:36.298Z] [unzip] Processing entry: client\index.html
+[debug] [2025-05-12T18:03:36.298Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.298Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\index.html
+[debug] [2025-05-12T18:03:36.300Z] [unzip] Entry: client/android-chrome-192x192.png (compressed_size=2684 bytes, uncompressed_size=2684 bytes)
+[debug] [2025-05-12T18:03:36.300Z] [unzip] Processing entry: client\android-chrome-192x192.png
+[debug] [2025-05-12T18:03:36.301Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.301Z] [unzip] Writing file: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\android-chrome-192x192.png
+[debug] [2025-05-12T18:03:36.301Z] [unzip] Entry: client/apple-touch-icon.png (compressed_size=2123 bytes, uncompressed_size=2152 bytes)
+[debug] [2025-05-12T18:03:36.301Z] [unzip] Processing entry: client\apple-touch-icon.png
+[debug] [2025-05-12T18:03:36.301Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.301Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\apple-touch-icon.png
+[debug] [2025-05-12T18:03:36.302Z] [unzip] Entry: client/android-chrome-512x512.png (compressed_size=5369 bytes, uncompressed_size=5411 bytes)
+[debug] [2025-05-12T18:03:36.302Z] [unzip] Processing entry: client\android-chrome-512x512.png
+[debug] [2025-05-12T18:03:36.302Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.303Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\android-chrome-512x512.png
+[debug] [2025-05-12T18:03:36.305Z] [unzip] Entry: client/manifest.json (compressed_size=245 bytes, uncompressed_size=551 bytes)
+[debug] [2025-05-12T18:03:36.305Z] [unzip] Processing entry: client\manifest.json
+[debug] [2025-05-12T18:03:36.305Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.305Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\manifest.json
+[debug] [2025-05-12T18:03:36.306Z] [unzip] Entry: client/robots.txt (compressed_size=26 bytes, uncompressed_size=26 bytes)
+[debug] [2025-05-12T18:03:36.306Z] [unzip] Processing entry: client\robots.txt
+[debug] [2025-05-12T18:03:36.306Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.307Z] [unzip] Writing file: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\robots.txt
+[debug] [2025-05-12T18:03:36.307Z] [unzip] Entry: client/mstile-150x150.png (compressed_size=2034 bytes, uncompressed_size=2034 bytes)
+[debug] [2025-05-12T18:03:36.307Z] [unzip] Processing entry: client\mstile-150x150.png
+[debug] [2025-05-12T18:03:36.307Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.307Z] [unzip] Writing file: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\mstile-150x150.png
+[debug] [2025-05-12T18:03:36.308Z] [unzip] Entry: client/assets/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-05-12T18:03:36.308Z] [unzip] Processing entry: client\assets\
+[debug] [2025-05-12T18:03:36.308Z] [unzip] mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\
+[debug] [2025-05-12T18:03:36.308Z] [unzip] Entry: client/assets/index-BX-A56oj.js (compressed_size=582089 bytes, uncompressed_size=2092775 bytes)
+[debug] [2025-05-12T18:03:36.308Z] [unzip] Processing entry: client\assets\index-BX-A56oj.js
+[debug] [2025-05-12T18:03:36.308Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets
+[debug] [2025-05-12T18:03:36.308Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\index-BX-A56oj.js
+[debug] [2025-05-12T18:03:36.325Z] [unzip] Entry: client/assets/index-CjB9C900.css (compressed_size=35979 bytes, uncompressed_size=298654 bytes)
+[debug] [2025-05-12T18:03:36.325Z] [unzip] Processing entry: client\assets\index-CjB9C900.css
+[debug] [2025-05-12T18:03:36.325Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets
+[debug] [2025-05-12T18:03:36.325Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\index-CjB9C900.css
+[debug] [2025-05-12T18:03:36.327Z] [unzip] Entry: client/assets/index-BX-A56oj.js.map (compressed_size=2362482 bytes, uncompressed_size=10036679 bytes)
+[debug] [2025-05-12T18:03:36.327Z] [unzip] Processing entry: client\assets\index-BX-A56oj.js.map
+[debug] [2025-05-12T18:03:36.327Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets
+[debug] [2025-05-12T18:03:36.327Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\index-BX-A56oj.js.map
+[debug] [2025-05-12T18:03:36.357Z] [unzip] Entry: client/assets/extensions/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-05-12T18:03:36.357Z] [unzip] Processing entry: client\assets\extensions\
+[debug] [2025-05-12T18:03:36.357Z] [unzip] mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\extensions\
+[debug] [2025-05-12T18:03:36.357Z] [unzip] Entry: client/assets/extensions/default-extension.png (compressed_size=1646 bytes, uncompressed_size=1657 bytes)
+[debug] [2025-05-12T18:03:36.357Z] [unzip] Processing entry: client\assets\extensions\default-extension.png
+[debug] [2025-05-12T18:03:36.357Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\extensions
+[debug] [2025-05-12T18:03:36.357Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\extensions\default-extension.png
+[debug] [2025-05-12T18:03:36.358Z] [unzip] Entry: client/assets/img/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-05-12T18:03:36.358Z] [unzip] Processing entry: client\assets\img\
+[debug] [2025-05-12T18:03:36.358Z] [unzip] mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\img\
+[debug] [2025-05-12T18:03:36.358Z] [unzip] Entry: client/assets/img/database.png (compressed_size=29449 bytes, uncompressed_size=29988 bytes)
+[debug] [2025-05-12T18:03:36.358Z] [unzip] Processing entry: client\assets\img\database.png
+[debug] [2025-05-12T18:03:36.358Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\img
+[debug] [2025-05-12T18:03:36.359Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\img\database.png
+[debug] [2025-05-12T18:03:36.359Z] [unzip] Entry: client/assets/provider-icons/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-05-12T18:03:36.359Z] [unzip] Processing entry: client\assets\provider-icons\
+[debug] [2025-05-12T18:03:36.359Z] [unzip] mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\
+[debug] [2025-05-12T18:03:36.359Z] [unzip] Entry: client/assets/provider-icons/auth_service_saml.svg (compressed_size=575 bytes, uncompressed_size=1226 bytes)
+[debug] [2025-05-12T18:03:36.359Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_saml.svg
+[debug] [2025-05-12T18:03:36.359Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.360Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_saml.svg
+[debug] [2025-05-12T18:03:36.360Z] [unzip] Entry: client/assets/provider-icons/auth_service_phone.svg (compressed_size=261 bytes, uncompressed_size=414 bytes)
+[debug] [2025-05-12T18:03:36.360Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_phone.svg
+[debug] [2025-05-12T18:03:36.360Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.360Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_phone.svg
+[debug] [2025-05-12T18:03:36.361Z] [unzip] Entry: client/assets/provider-icons/auth_service_facebook.svg (compressed_size=289 bytes, uncompressed_size=457 bytes)
+[debug] [2025-05-12T18:03:36.361Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_facebook.svg
+[debug] [2025-05-12T18:03:36.361Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.361Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_facebook.svg
+[debug] [2025-05-12T18:03:36.362Z] [unzip] Entry: client/assets/provider-icons/auth_service_game_center.svg (compressed_size=991 bytes, uncompressed_size=3921 bytes)
+[debug] [2025-05-12T18:03:36.362Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_game_center.svg
+[debug] [2025-05-12T18:03:36.362Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.362Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_game_center.svg
+[debug] [2025-05-12T18:03:36.363Z] [unzip] Entry: client/assets/provider-icons/auth_service_apple.svg (compressed_size=230 bytes, uncompressed_size=334 bytes)
+[debug] [2025-05-12T18:03:36.363Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_apple.svg
+[debug] [2025-05-12T18:03:36.363Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.363Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_apple.svg
+[debug] [2025-05-12T18:03:36.363Z] [unzip] Entry: client/assets/provider-icons/auth_service_github.svg (compressed_size=466 bytes, uncompressed_size=838 bytes)
+[debug] [2025-05-12T18:03:36.363Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_github.svg
+[debug] [2025-05-12T18:03:36.363Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.364Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_github.svg
+[debug] [2025-05-12T18:03:36.364Z] [unzip] Entry: client/assets/provider-icons/auth_service_mslive.svg (compressed_size=203 bytes, uncompressed_size=378 bytes)
+[debug] [2025-05-12T18:03:36.364Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_mslive.svg
+[debug] [2025-05-12T18:03:36.364Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.364Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_mslive.svg
+[debug] [2025-05-12T18:03:36.365Z] [unzip] Entry: client/assets/provider-icons/auth_service_yahoo.svg (compressed_size=577 bytes, uncompressed_size=1182 bytes)
+[debug] [2025-05-12T18:03:36.365Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_yahoo.svg
+[debug] [2025-05-12T18:03:36.365Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.365Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_yahoo.svg
+[debug] [2025-05-12T18:03:36.365Z] [unzip] Entry: client/assets/provider-icons/auth_service_twitter.svg (compressed_size=444 bytes, uncompressed_size=751 bytes)
+[debug] [2025-05-12T18:03:36.365Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_twitter.svg
+[debug] [2025-05-12T18:03:36.366Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.366Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_twitter.svg
+[debug] [2025-05-12T18:03:36.366Z] [unzip] Entry: client/assets/provider-icons/auth_service_play_games.svg (compressed_size=565 bytes, uncompressed_size=1173 bytes)
+[debug] [2025-05-12T18:03:36.366Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_play_games.svg
+[debug] [2025-05-12T18:03:36.366Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.368Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_play_games.svg
+[debug] [2025-05-12T18:03:36.368Z] [unzip] Entry: client/assets/provider-icons/auth_service_email.svg (compressed_size=228 bytes, uncompressed_size=326 bytes)
+[debug] [2025-05-12T18:03:36.369Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_email.svg
+[debug] [2025-05-12T18:03:36.369Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.369Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_email.svg
+[debug] [2025-05-12T18:03:36.369Z] [unzip] Entry: client/assets/provider-icons/auth_service_google.svg (compressed_size=409 bytes, uncompressed_size=720 bytes)
+[debug] [2025-05-12T18:03:36.369Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_google.svg
+[debug] [2025-05-12T18:03:36.369Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.370Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_google.svg
+[debug] [2025-05-12T18:03:36.370Z] [unzip] Entry: client/assets/provider-icons/auth_service_oidc.svg (compressed_size=414 bytes, uncompressed_size=858 bytes)
+[debug] [2025-05-12T18:03:36.370Z] [unzip] Processing entry: client\assets\provider-icons\auth_service_oidc.svg
+[debug] [2025-05-12T18:03:36.370Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons
+[debug] [2025-05-12T18:03:36.371Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\assets\provider-icons\auth_service_oidc.svg
+[debug] [2025-05-12T18:03:36.371Z] [unzip] Entry: client/browserconfig.xml (compressed_size=491 bytes, uncompressed_size=822 bytes)
+[debug] [2025-05-12T18:03:36.371Z] [unzip] Processing entry: client\browserconfig.xml
+[debug] [2025-05-12T18:03:36.371Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.371Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\browserconfig.xml
+[debug] [2025-05-12T18:03:36.372Z] [unzip] Entry: client/favicon-32x32.png (compressed_size=475 bytes, uncompressed_size=475 bytes)
+[debug] [2025-05-12T18:03:36.372Z] [unzip] Processing entry: client\favicon-32x32.png
+[debug] [2025-05-12T18:03:36.372Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client
+[debug] [2025-05-12T18:03:36.372Z] [unzip] Writing file: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\client\favicon-32x32.png
+[debug] [2025-05-12T18:03:36.372Z] [unzip] Entry: server/ (compressed_size=0 bytes, uncompressed_size=0 bytes)
+[debug] [2025-05-12T18:03:36.372Z] [unzip] Processing entry: server\
+[debug] [2025-05-12T18:03:36.372Z] [unzip] mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\server\
+[debug] [2025-05-12T18:03:36.373Z] [unzip] Entry: server/server.mjs.map (compressed_size=217845 bytes, uncompressed_size=944978 bytes)
+[debug] [2025-05-12T18:03:36.373Z] [unzip] Processing entry: server\server.mjs.map
+[debug] [2025-05-12T18:03:36.373Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\server
+[debug] [2025-05-12T18:03:36.373Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\server\server.mjs.map
+[debug] [2025-05-12T18:03:36.376Z] [unzip] Entry: server/server.mjs (compressed_size=276407 bytes, uncompressed_size=933701 bytes)
+[debug] [2025-05-12T18:03:36.376Z] [unzip] Processing entry: server\server.mjs
+[debug] [2025-05-12T18:03:36.376Z] [unzip] else mkdir: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\server
+[debug] [2025-05-12T18:03:36.376Z] [unzip] deflating: C:\Users\ASUS\.cache\firebase\emulators\ui-v1.15.0\server\server.mjs
+[info] i  functions: Watching "D:\waffer\project\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"D:\\waffer\\project\\functions\" for Cloud Functions..."}}
+[debug] [2025-05-12T18:03:36.384Z] Validating nodejs source
+[warn] !  functions: package.json indicates an outdated version of firebase-functions. Please upgrade using npm install --save firebase-functions@latest in your functions directory. 
+[warn] !  functions: Please note that there will be breaking changes when you upgrade. 
+[debug] [2025-05-12T18:03:38.344Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "firebase-admin": "^11.11.0",
+    "firebase-functions": "^4.5.0",
+    "firebase-functions-test": "^3.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.19"
+  },
+  "private": true
+}
+[debug] [2025-05-12T18:03:38.344Z] Building nodejs source
+[debug] [2025-05-12T18:03:38.344Z] Failed to find version of module node: reached end of search path D:\waffer\project\functions\node_modules
+[warn] !  functions: Your requested "node" version "18" doesn't match your global version "22". Using node@22 from host. 
+[info] i  functions: You are using a version of firebase-functions SDK (4.9.0) that does not have support for the newest Firebase Extensions features. Please update firebase-functions SDK to >=5.1.0 to use them correctly 
+[debug] [2025-05-12T18:03:38.346Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-05-12T18:03:38.350Z] Found firebase-functions binary at 'D:\waffer\project\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8284
+
+[debug] [2025-05-12T18:03:38.878Z] Got response from /__/functions.yaml {"endpoints":{"api":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"api"},"onUserCreated":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/waffer-1b16d"},"retry":false},"labels":{},"entryPoint":"onUserCreated"},"onCouponRedeemed":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"eventTrigger":{"eventType":"providers/cloud.firestore/eventTypes/document.create","eventFilters":{"resource":"projects/waffer-1b16d/databases/(default)/documents/redemptions/{redemptionId}"},"retry":false},"labels":{},"entryPoint":"onCouponRedeemed"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] +  functions: Loaded functions definitions from source: api, onUserCreated, onCouponRedeemed. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: api, onUserCreated, onCouponRedeemed."}}
+[info] +  functions[us-central1-api]: http function initialized (http://127.0.0.1:5001/waffer-1b16d/us-central1/api). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/waffer-1b16d/us-central1/api)."}}
+[debug] [2025-05-12T18:03:42.911Z] addAuthTrigger {"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","resource":"projects/waffer-1b16d"}}
+[info] +  functions[us-central1-onUserCreated]: auth function initialized. {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mauth\u001b[22m function initialized."}}
+[info] i  functions[us-central1-onCouponRedeemed]: function ignored because the firestore emulator does not exist or is not running. {"metadata":{"emulator":{"name":"functions"},"message":"function ignored because the firestore emulator does not exist or is not running."}}
+[debug] [2025-05-12T18:03:42.916Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub host: 127.0.0.1 port: 4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 

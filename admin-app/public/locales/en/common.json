@@ -1,0 +1,63 @@
+{
+  "login": {
+    "title": "Admin Login",
+    "email": "Email Address",
+    "password": "Password",
+    "submit": "Sign In",
+    "error": "Invalid email or password"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "users": "Users",
+    "coupons": "Coupons",
+    "stores": "Stores",
+    "notifications": "Notifications",
+    "analytics": "Analytics"
+  },
+  "users": {
+    "title": "User Management",
+    "search": "Search users...",
+    "role": "Role",
+    "status": "Status",
+    "actions": "Actions",
+    "edit": "Edit User",
+    "disable": "Disable User",
+    "enable": "Enable User"
+  },
+  "coupons": {
+    "title": "Coupon Management",
+    "create": "Create Coupon",
+    "edit": "Edit Coupon",
+    "delete": "Delete Coupon",
+    "store": "Store",
+    "discountType": "Discount Type",
+    "value": "Value",
+    "validFrom": "Valid From",
+    "validTo": "Valid To",
+    "usageLimit": "Usage Limit"
+  },
+  "stores": {
+    "title": "Store Management",
+    "create": "Create Store",
+    "edit": "Edit Store",
+    "delete": "Delete Store",
+    "name": "Store Name",
+    "description": "Description",
+    "address": "Address",
+    "merchant": "Merchant"
+  },
+  "notifications": {
+    "title": "Send Notification",
+    "recipients": "Recipients",
+    "message": "Message",
+    "send": "Send",
+    "success": "Notification sent successfully"
+  },
+  "analytics": {
+    "title": "Analytics",
+    "activeCoupons": "Active Coupons",
+    "totalRedemptions": "Total Redemptions",
+    "totalSavings": "Total Savings",
+    "period": "Period"
+  }
+} 
