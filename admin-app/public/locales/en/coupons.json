@@ -1,0 +1,81 @@
+{
+  "title": "Coupon Management",
+  "description": "Create, edit, and manage all coupons across your platform.",
+  "actions": {
+    "addCoupon": "Add Coupon",
+    "duplicate": "Duplicate",
+    "showQRCode": "Show QR Code"
+  },
+  "table": {
+    "title": "Title",
+    "code": "Code",
+    "discount": "Discount",
+    "merchant": "Merchant",
+    "expiryDate": "Expiry Date",
+    "status": "Status",
+    "usage": "Usage"
+  },
+  "status": {
+    "active": "Active",
+    "expired": "Expired",
+    "scheduled": "Scheduled",
+    "paused": "Paused"
+  },
+  "discountTypes": {
+    "percentage": "Percentage",
+    "fixed": "Fixed Amount"
+  },
+  "form": {
+    "addTitle": "Add Coupon",
+    "editTitle": "Edit Coupon",
+    "title": "Title",
+    "description": "Description",
+    "code": "Coupon Code",
+    "generate": "Generate",
+    "status": "Status",
+    "merchant": "Merchant",
+    "category": "Category",
+    "discountType": "Discount Type",
+    "discount": "Discount Value",
+    "expiryDate": "Expiry Date",
+    "usageLimit": "Usage Limit",
+    "usageLimitHint": "Set to -1 for unlimited usage",
+    "minPurchase": "Minimum Purchase",
+    "maxDiscount": "Maximum Discount",
+    "maxDiscountHint": "Maximum discount amount when using percentage",
+    "termsAndConditions": "Terms & Conditions",
+    "tabs": {
+      "basic": "Basic Info",
+      "restrictions": "Restrictions",
+      "terms": "Terms"
+    }
+  },
+  "validation": {
+    "titleRequired": "Title is required",
+    "descriptionRequired": "Description is required",
+    "codeRequired": "Coupon code is required",
+    "discountRequired": "Discount value is required",
+    "merchantRequired": "Merchant is required",
+    "categoryRequired": "Category is required",
+    "expiryDateInvalid": "Expiry date must be in the future"
+  },
+  "deleteDialog": {
+    "title": "Delete Coupon",
+    "content": "Are you sure you want to delete \"{{title}}\"? This action cannot be undone."
+  },
+  "filters": {
+    "status": "Status",
+    "stores": "Stores",
+    "categories": "Categories",
+    "expiryDate": "Expiry Date",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "description": "Filter coupons by various criteria"
+  },
+  "qrCode": {
+    "title": "Coupon QR Code",
+    "scanInstructions": "Scan this QR code to redeem the coupon",
+    "download": "Download QR Code"
+  },
+  "noCouponsFound": "No coupons found matching your criteria"
+}

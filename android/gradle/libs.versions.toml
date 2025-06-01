@@ -1,0 +1,12 @@
+[versions]
+# Use AGP version compatible with Build Tools 35.0.0
+agp = "8.7.0"
+kotlin = "1.9.24"
+
+[libraries]
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

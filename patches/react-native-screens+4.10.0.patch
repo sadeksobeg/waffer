@@ -1,0 +1,22 @@
+diff --git a/node_modules/react-native-screens/android/build.gradle b/node_modules/react-native-screens/android/build.gradle
+index 872d44e..e0cad33 100644
+--- a/node_modules/react-native-screens/android/build.gradle
++++ b/node_modules/react-native-screens/android/build.gradle
+@@ -16,11 +16,16 @@ buildscript {
+         return result ? rootProject.ext.get(result) : fallback
+     }
+     repositories {
++        // Mirrors for better connectivity
++        maven { url "https://maven.aliyun.com/repository/google" }
++        maven { url "https://maven.aliyun.com/repository/central" }
++        maven { url "https://repo.huaweicloud.com/repository/maven/" }
++        // Must come first so AGP is found:
+         google()
+         mavenCentral()
+     }
+     dependencies {
+-        classpath('com.android.tools.build:gradle:8.2.1')
++        classpath('com.android.tools.build:gradle:8.2.2')
+         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${safeExtGet('kotlinVersion', rnsDefaultKotlinVersion)}"
+         classpath "com.diffplug.spotless:spotless-plugin-gradle:6.25.0"
+     }

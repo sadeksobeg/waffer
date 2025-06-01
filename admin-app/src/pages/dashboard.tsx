@@ -1,111 +1,107 @@
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import {
   Grid,
   Paper,
   Typography,
   Box,
-  Card,
-  CardContent,
+  Container,
+  Button
 } from '@mui/material';
 import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
-import Layout from '@/components/Layout';
-import { useAuth } from '@/contexts/AuthContext';
-
-// Mock data for the chart
-const data = [
-  { name: 'Jan', value: 400 },
-  { name: 'Feb', value: 300 },
-  { name: 'Mar', value: 600 },
-  { name: 'Apr', value: 800 },
-  { name: 'May', value: 500 },
-  { name: 'Jun', value: 700 },
-];
+  People as PeopleIcon,
+  LocalOffer as CouponIcon,
+  Redeem as RedeemIcon,
+  TrendingUp as TrendingUpIcon
+} from '@mui/icons-material';
+import Link from 'next/link';
 
 export default function Dashboard() {
-  const { t } = useTranslation('common');
-  const { user } = useAuth();
-
   return (
-    <Layout>
-      <Box sx={{ flexGrow: 1 }}>
-        <Typography variant="h4" gutterBottom>
-          {t('dashboard.title')}
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box mb={4} display="flex" justifyContent="space-between" alignItems="center">
+        <Typography variant="h4" component="h1" gutterBottom>
+          Dashboard (Direct File)
         </Typography>
-        
-        <Grid container spacing={3}>
-          {/* Quick Stats */}
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  {t('analytics.activeCoupons')}
-                </Typography>
-                <Typography variant="h5">150</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  {t('analytics.totalRedemptions')}
-                </Typography>
-                <Typography variant="h5">1,234</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-          
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent>
-                <Typography color="textSecondary" gutterBottom>
-                  {t('analytics.totalSavings')}
-                </Typography>
-                <Typography variant="h5">$12,345</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
 
-          {/* Chart */}
-          <Grid item xs={12}>
-            <Paper sx={{ p: 2 }}>
-              <Typography variant="h6" gutterBottom>
-                {t('analytics.title')}
-              </Typography>
-              <Box sx={{ height: 300 }}>
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={data}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="value" fill="#8884d8" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </Box>
-            </Paper>
-          </Grid>
-        </Grid>
+        <Button component={Link} href="/" variant="outlined">
+          Back to Home
+        </Button>
       </Box>
-    </Layout>
+
+      <Grid container spacing={3}>
+        {/* Stats Cards */}
+        <Grid item xs={12} sm={6} md={3}>
+          <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', height: 140, alignItems: 'center', justifyContent: 'center' }}>
+            <PeopleIcon sx={{ fontSize: 40, mb: 1, color: 'primary.main' }} />
+            <Typography variant="h6" gutterBottom align="center">
+              Total Users
+            </Typography>
+            <Typography variant="h4">
+              1,234
+            </Typography>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', height: 140, alignItems: 'center', justifyContent: 'center' }}>
+            <CouponIcon sx={{ fontSize: 40, mb: 1, color: 'secondary.main' }} />
+            <Typography variant="h6" gutterBottom align="center">
+              Active Coupons
+            </Typography>
+            <Typography variant="h4">
+              567
+            </Typography>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', height: 140, alignItems: 'center', justifyContent: 'center' }}>
+            <RedeemIcon sx={{ fontSize: 40, mb: 1, color: 'success.main' }} />
+            <Typography variant="h6" gutterBottom align="center">
+              Redemptions
+            </Typography>
+            <Typography variant="h4">
+              890
+            </Typography>
+          </Paper>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={3}>
+          <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', height: 140, alignItems: 'center', justifyContent: 'center' }}>
+            <TrendingUpIcon sx={{ fontSize: 40, mb: 1, color: 'info.main' }} />
+            <Typography variant="h6" gutterBottom align="center">
+              Active Users
+            </Typography>
+            <Typography variant="h4">
+              456
+            </Typography>
+          </Paper>
+        </Grid>
+
+        {/* Charts */}
+        <Grid item xs={12}>
+          <Paper sx={{ p: 3 }}>
+            <Typography variant="h6" gutterBottom>
+              Recent Activity
+            </Typography>
+            <Box sx={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Typography variant="body1">
+                Chart would go here in the full dashboard
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale || 'en', ['common'])),
     },
   };
-} 
+};

@@ -82,9 +82,10 @@ def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInRelea
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 android {
-    ndkVersion rootProject.ext.ndkVersion
+    // Use the NDK version that matches Expo's requirement
+    ndkVersion "27.1.12297006"
 
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    // buildToolsVersion removed - AGP 8.10.0 uses default 35.0.0
     compileSdk rootProject.ext.compileSdkVersion
 
     namespace 'com.anonymous.boltexponativewind'
@@ -94,6 +95,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
+        // Try to disable native builds for now
+        ndk {
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
+        }
     }
     signingConfigs {
         debug {
@@ -175,3 +180,6 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+// Apply Google Services plugin
+apply plugin: 'com.google.gms.google-services'

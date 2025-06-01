@@ -1,0 +1,76 @@
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.12/executionHistory/executionHistory.bin b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.12/executionHistory/executionHistory.bin
+new file mode 100644
+index 0000000..0f7d9ec
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.12/executionHistory/executionHistory.bin differ
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.12/executionHistory/executionHistory.lock b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.12/executionHistory/executionHistory.lock
+new file mode 100644
+index 0000000..270cb58
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.12/executionHistory/executionHistory.lock differ
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.14/executionHistory/executionHistory.bin b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.14/executionHistory/executionHistory.bin
+new file mode 100644
+index 0000000..d888180
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.14/executionHistory/executionHistory.bin differ
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.14/executionHistory/executionHistory.lock b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.14/executionHistory/executionHistory.lock
+new file mode 100644
+index 0000000..2121129
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/8.14/executionHistory/executionHistory.lock differ
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/buildOutputCleanup.lock b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+new file mode 100644
+index 0000000..aa8da1c
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/buildOutputCleanup.lock differ
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/cache.properties b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/cache.properties
+new file mode 100644
+index 0000000..8a99aa2
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/cache.properties
+@@ -0,0 +1,2 @@
++#Mon May 26 18:37:07 EET 2025
++gradle.version=8.14
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/outputFiles.bin b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/outputFiles.bin
+new file mode 100644
+index 0000000..e5f097e
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/buildOutputCleanup/outputFiles.bin differ
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/file-system.probe b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/file-system.probe
+new file mode 100644
+index 0000000..8f5aa2c
+Binary files /dev/null and b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/.gradle/file-system.probe differ
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-plugin/build.gradle.kts b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-plugin/build.gradle.kts
+index cc73c94..ad82a26 100644
+--- a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-plugin/build.gradle.kts
++++ b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-plugin/build.gradle.kts
+@@ -13,7 +13,7 @@ repositories {
+ dependencies {
+   implementation(project(":expo-autolinking-plugin-shared"))
+   implementation(gradleApi())
+-  compileOnly("com.android.tools.build:gradle:8.5.0")
++  compileOnly("com.android.tools.build:gradle:8.2.2")
+ }
+
+ java {
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build.gradle.kts b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build.gradle.kts
+index 3608abb..2e2be6f 100644
+--- a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build.gradle.kts
++++ b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build.gradle.kts
+@@ -14,7 +14,7 @@ repositories {
+ dependencies {
+   implementation(project(":expo-autolinking-plugin-shared"))
+   implementation(gradleApi())
+-  compileOnly("com.android.tools.build:gradle:8.5.0")
++  compileOnly("com.android.tools.build:gradle:8.2.2")
+
+   testImplementation("junit:junit:4.13.2")
+   testImplementation("com.google.truth:truth:1.1.2")
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build/pluginDescriptors/expo-autolinking-settings.properties b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build/pluginDescriptors/expo-autolinking-settings.properties
+new file mode 100644
+index 0000000..fe4b472
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build/pluginDescriptors/expo-autolinking-settings.properties
+@@ -0,0 +1 @@
++implementation-class=expo.modules.plugin.ExpoAutolinkingSettingsPlugin
+diff --git a/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build/resources/main/META-INF/gradle-plugins/expo-autolinking-settings.properties b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build/resources/main/META-INF/gradle-plugins/expo-autolinking-settings.properties
+new file mode 100644
+index 0000000..fe4b472
+--- /dev/null
++++ b/node_modules/expo-modules-autolinking/android/expo-gradle-plugin/expo-autolinking-settings-plugin/build/resources/main/META-INF/gradle-plugins/expo-autolinking-settings.properties
+@@ -0,0 +1 @@
++implementation-class=expo.modules.plugin.ExpoAutolinkingSettingsPlugin

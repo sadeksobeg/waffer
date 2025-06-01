@@ -20,7 +20,7 @@
       "expo-router",
       "expo-font",
       "expo-web-browser",
-      "expo-barcode-scanner"
+      "@react-native-firebase/app"
     ],
     "experiments": {
       "typedRoutes": true
@@ -29,7 +29,9 @@
       "permissions": [
         "android.permission.CAMERA"
       ],
-      "package": "com.anonymous.boltexponativewind"
+      "package": "com.anonymous.boltexponativewind",
+      "buildToolsVersion": "35.0.1",
+      "googleServicesFile": "./android/app/google-services.json"
     }
   }
 }

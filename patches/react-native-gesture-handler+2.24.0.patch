@@ -1,0 +1,25 @@
+diff --git a/node_modules/react-native-gesture-handler/android/build.gradle b/node_modules/react-native-gesture-handler/android/build.gradle
+index 81e011b..d3ced0b 100644
+--- a/node_modules/react-native-gesture-handler/android/build.gradle
++++ b/node_modules/react-native-gesture-handler/android/build.gradle
+@@ -5,13 +5,18 @@ buildscript {
+     def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['RNGH_kotlinVersion']
+ 
+     repositories {
+-        mavenCentral()
++        // Mirrors for better connectivity
++        maven { url "https://maven.aliyun.com/repository/google" }
++        maven { url "https://maven.aliyun.com/repository/central" }
++        maven { url "https://repo.huaweicloud.com/repository/maven/" }
++        // Must come first so AGP is found:
+         google()
++        mavenCentral()
+     }
+ 
+     dependencies {
+         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+-        classpath("com.android.tools.build:gradle:7.2.1")
++        classpath("com.android.tools.build:gradle:8.2.2")
+         classpath("com.diffplug.spotless:spotless-plugin-gradle:6.7.2")
+     }
+ }

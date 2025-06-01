@@ -1,0 +1,23 @@
+diff --git a/node_modules/react-native-webview/android/build.gradle b/node_modules/react-native-webview/android/build.gradle
+index cb3476a..a5cd92f 100644
+--- a/node_modules/react-native-webview/android/build.gradle
++++ b/node_modules/react-native-webview/android/build.gradle
+@@ -5,12 +5,17 @@ buildscript {
+         rootProject.ext.has(prop) ? rootProject.ext.get(prop) : project.properties['ReactNativeWebView_' + prop]
+     }
+     repositories {
++        // Mirrors for better connectivity
++        maven { url "https://maven.aliyun.com/repository/google" }
++        maven { url "https://maven.aliyun.com/repository/central" }
++        maven { url "https://repo.huaweicloud.com/repository/maven/" }
++        // Must come first so AGP is found:
+         google()
+         gradlePluginPortal()
+     }
+     dependencies {
+         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${safeExtGet('kotlinVersion')}")
+-        classpath("com.android.tools.build:gradle:7.0.4")
++        classpath("com.android.tools.build:gradle:8.2.2")
+     }
+ }
+ 

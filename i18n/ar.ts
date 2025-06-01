@@ -15,7 +15,11 @@ export default {
   customer: 'عميل',
   merchant: 'تاجر',
   admin: 'مدير',
-  
+
+  // App branding
+  save_more_spend_less: 'وفر أكثر، أنفق أقل',
+  hello: 'مرحبا',
+
   // Common
   search: 'بحث',
   filter: 'تصفية',
@@ -41,7 +45,7 @@ export default {
   success: 'نجاح',
   warning: 'تحذير',
   info: 'معلومات',
-  
+
   // Customer
   home: 'الرئيسية',
   explore: 'استكشاف',
@@ -61,7 +65,7 @@ export default {
   yourPoints: 'نقاطك',
   redeemPoints: 'استبدال النقاط',
   availableRewards: 'المكافآت المتاحة',
-  
+
   // Merchant
   dashboard: 'لوحة التحكم',
   myCoupons: 'كوبوناتي',
@@ -81,7 +85,7 @@ export default {
   storeDetails: 'تفاصيل المتجر',
   manageStore: 'إدارة المتجر',
   editStore: 'تعديل المتجر',
-  
+
   // Admin
   adminDashboard: 'لوحة تحكم المدير',
   userManagement: 'إدارة المستخدمين',
@@ -97,13 +101,13 @@ export default {
   allCoupons: 'جميع الكوبونات',
   reportPeriod: 'فترة التقرير',
   generateReport: 'إنشاء التقرير',
-  
+
   // Notifications
   newCouponNotification: 'كوبون جديد متاح من {store}!',
   couponRedeemed: 'تم استبدال الكوبون بنجاح!',
   pointsEarnedNotification: 'لقد اكتسبت {points} نقطة!',
   couponExpiring: 'ينتهي قريبًا الكوبون الخاص بك من {store}!',
-  
+
   // Errors
   loginFailed: 'فشل تسجيل الدخول. يرجى التحقق من بياناتك والمحاولة مرة أخرى.',
   registrationFailed: 'فشل التسجيل. يرجى المحاولة مرة أخرى.',

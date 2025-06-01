@@ -1,4 +1,30 @@
 {
+  "appName": "Coupon Admin",
+  "search": "Search",
+  "actions": "Actions",
+  "view": "View",
+  "edit": "Edit",
+  "delete": "Delete",
+  "save": "Save",
+  "cancel": "Cancel",
+  "close": "Close",
+  "apply": "Apply",
+  "reset": "Reset",
+  "clearAll": "Clear All",
+  "filters": "Filters",
+  "success": "Success",
+  "error": "Error",
+  "print": "Print",
+  "refresh": "Refresh",
+  "all": "All",
+  "none": "None",
+  "manage": "Manage",
+  "saving": "Saving...",
+  "sending": "Sending...",
+  "exporting": "Exporting...",
+  "createdAt": "Created At",
+  "updatedAt": "Updated At",
+  "status": "Status",
   "login": {
     "title": "Admin Login",
     "email": "Email Address",
@@ -59,5 +85,22 @@
     "totalRedemptions": "Total Redemptions",
     "totalSavings": "Total Savings",
     "period": "Period"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "stores": "Stores",
+    "coupons": "Coupons",
+    "analytics": "Analytics",
+    "notifications": "Notifications",
+    "notificationTemplates": "Notification Templates",
+    "settings": "Settings"
+  },
+  "userMenu": {
+    "profile": "Profile",
+    "switchToAdmin": "Switch to Admin",
+    "switchToMerchant": "Switch to Merchant",
+    "switchToSupport": "Switch to Support",
+    "signOut": "Sign Out"
   }
-} 
+}

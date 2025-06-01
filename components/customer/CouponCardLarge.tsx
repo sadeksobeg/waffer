@@ -9,16 +9,22 @@ import { formatDistance } from 'date-fns';
 interface Coupon {
   id: string;
   title: string;
-  description: string;
-  discount: string;
-  merchant: {
+  description?: string;
+  discount?: string | { value: number; type: string }; // Admin dashboard uses object format
+  value?: number; // Legacy field
+  merchant?: {
     id: string;
     name: string;
     image: string;
   };
-  category: string;
-  expiryDate: string;
-  createdAt: string;
+  storeName?: string; // Admin dashboard uses 'storeName'
+  storeImage?: string; // Admin dashboard uses 'storeImage'
+  category?: string;
+  categories?: string[]; // Admin dashboard uses 'categories' array
+  expiryDate?: string;
+  endDate?: any; // Firebase timestamp or string
+  validTo?: any; // Admin dashboard uses 'validTo' for expiry
+  createdAt?: string;
 }
 
 interface CouponCardLargeProps {
@@ -32,16 +38,98 @@ export default function CouponCardLarge({ coupon, onPress, onSave, isSaved = fal
   const { theme } = useTheme();
   const { t } = useLanguage();
   const styles = createThemedStyles(theme);
-  
-  const isExpired = new Date(coupon.expiryDate) < new Date();
-  const expiresIn = formatDistance(new Date(coupon.expiryDate), new Date(), { addSuffix: true });
-  
+
+  // Handle different date formats from Firebase/Admin dashboard
+  const getExpiryDate = () => {
+    try {
+      // Handle Firebase Timestamp objects (validTo field from admin dashboard)
+      if (coupon.validTo?.seconds && typeof coupon.validTo.seconds === 'number') {
+        const date = new Date(coupon.validTo.seconds * 1000);
+        if (!isNaN(date.getTime())) {
+          return date;
+        }
+      }
+      // Handle other Firebase Timestamp formats
+      if (coupon.endDate?.seconds && typeof coupon.endDate.seconds === 'number') {
+        const date = new Date(coupon.endDate.seconds * 1000);
+        if (!isNaN(date.getTime())) {
+          return date;
+        }
+      } else if (coupon.endDate) {
+        const date = new Date(coupon.endDate);
+        if (!isNaN(date.getTime())) {
+          return date;
+        }
+      } else if (coupon.expiryDate) {
+        const date = new Date(coupon.expiryDate);
+        if (!isNaN(date.getTime())) {
+          return date;
+        }
+      }
+      // Default to 30 days from now if no valid date found
+      return new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+    } catch (error) {
+      console.warn('Date parsing error:', error);
+      return new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // Default to 30 days from now
+    }
+  };
+
+  // Handle different data structures from Firebase/Admin dashboard
+  const getMerchantName = () => {
+    return coupon.merchant?.name || coupon.storeName || 'Unknown Store';
+  };
+
+  const getMerchantImage = () => {
+    return coupon.merchant?.image || coupon.storeImage || 'https://via.placeholder.com/60x60?text=Store';
+  };
+
+  const getDiscountValue = () => {
+    try {
+      // Handle Firebase admin dashboard structure: discount: {value: 5, type: "fixed"}
+      if (coupon.discount && typeof coupon.discount === 'object' && coupon.discount.value !== undefined) {
+        return coupon.discount.value.toString();
+      }
+      // Handle simple discount string/number
+      if (coupon.discount && typeof coupon.discount !== 'object') {
+        return coupon.discount.toString();
+      }
+      // Handle legacy value field
+      if (coupon.value) {
+        if (typeof coupon.value === 'object' && coupon.value.value !== undefined) {
+          return coupon.value.value.toString();
+        } else if (typeof coupon.value === 'number') {
+          return coupon.value.toString();
+        } else if (typeof coupon.value === 'string') {
+          return coupon.value;
+        }
+      }
+      return '0';
+    } catch (error) {
+      console.warn('Error parsing discount value:', error);
+      return '0';
+    }
+  };
+
+  const getCategory = () => {
+    if (coupon.category) return coupon.category;
+    if (coupon.categories && coupon.categories.length > 0) return coupon.categories[0];
+    return 'General';
+  };
+
+  const getDescription = () => {
+    return coupon.description || 'No description available';
+  };
+
+  const expiryDate = getExpiryDate();
+  const isExpired = expiryDate < new Date();
+  const expiresIn = formatDistance(expiryDate, new Date(), { addSuffix: true });
+
   return (
     <TouchableOpacity
       style={[
-        couponCardStyles.container, 
-        styles.shadow, 
-        { 
+        couponCardStyles.container,
+        styles.shadow,
+        {
           backgroundColor: theme.colors.card,
           opacity: isExpired ? 0.7 : 1
         }
@@ -51,28 +139,28 @@ export default function CouponCardLarge({ coupon, onPress, onSave, isSaved = fal
       disabled={isExpired}
     >
       <View style={couponCardStyles.contentRow}>
-        <Image 
-          source={{ uri: coupon.merchant.image }} 
-          style={couponCardStyles.merchantImage} 
+        <Image
+          source={{ uri: getMerchantImage() }}
+          style={couponCardStyles.merchantImage}
         />
-        
+
         <View style={couponCardStyles.contentSection}>
           <Text style={[styles.text, couponCardStyles.merchantName]}>
-            {coupon.merchant.name}
+            {getMerchantName()}
           </Text>
           <Text style={[styles.subtitle, couponCardStyles.title]} numberOfLines={1}>
             {coupon.title}
           </Text>
           <Text style={[styles.secondaryText, couponCardStyles.description]} numberOfLines={2}>
-            {coupon.description}
+            {getDescription()}
           </Text>
-          
+
           <View style={couponCardStyles.metaInfo}>
             <View style={couponCardStyles.expiryContainer}>
               <Clock size={14} color={isExpired ? theme.colors.error[500] : theme.colors.primary[500]} />
-              <Text 
+              <Text
                 style={[
-                  styles.secondaryText, 
+                  styles.secondaryText,
                   couponCardStyles.expiryText,
                   { color: isExpired ? theme.colors.error[500] : theme.colors.secondaryText }
                 ]}
@@ -80,22 +168,22 @@ export default function CouponCardLarge({ coupon, onPress, onSave, isSaved = fal
                 {isExpired ? 'Expired' : expiresIn}
               </Text>
             </View>
-            
+
             <View style={couponCardStyles.categoryContainer}>
               <Tag size={14} color={theme.colors.primary[500]} />
               <Text style={[styles.secondaryText, couponCardStyles.categoryText]}>
-                {coupon.category}
+                {getCategory()}
               </Text>
             </View>
           </View>
         </View>
-        
+
         <View style={couponCardStyles.rightSide}>
           <View style={[couponCardStyles.discount, { backgroundColor: theme.colors.primary[500] }]}>
-            <Text style={couponCardStyles.discountText}>{coupon.discount}%</Text>
+            <Text style={couponCardStyles.discountText}>{getDiscountValue()}%</Text>
           </View>
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             style={couponCardStyles.bookmarkButton}
             onPress={onSave}
           >

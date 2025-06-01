@@ -38,6 +38,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.onCouponRedeemed = exports.onUserCreated = exports.api = void 0;
 const functions = __importStar(require("firebase-functions"));
+const functionsV1 = __importStar(require("firebase-functions/v1"));
 const admin = __importStar(require("firebase-admin"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
@@ -49,6 +50,10 @@ const db = admin.firestore();
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({ origin: true }));
 app.use(express_1.default.json());
+// Health check endpoint
+app.get('/ping', (req, res) => {
+    res.status(200).send('pong');
+});
 // Middleware to check admin role
 const checkAdminRole = async (req, res, next) => {
     try {
@@ -62,7 +67,7 @@ const checkAdminRole = async (req, res, next) => {
             return res.status(403).json({ error: 'Forbidden' });
         }
         req.user = decodedToken;
-        next();
+        return next();
     }
     catch (error) {
         return res.status(401).json({ error: 'Unauthorized' });
@@ -105,6 +110,7 @@ app.get('/stores', checkAdminRole, async (req, res) => {
 app.post('/notifications', checkAdminRole, async (req, res) => {
     try {
         const { title, body, targetAudience, data } = req.body;
+        // Use a type assertion to handle the serverTimestamp
         const notificationData = {
             title,
             body,
@@ -133,7 +139,7 @@ app.post('/notifications', checkAdminRole, async (req, res) => {
 // Export the Express app as a Firebase Function
 exports.api = functions.https.onRequest(app);
 // Cloud Function to handle user role updates
-exports.onUserCreated = functions.auth.user().onCreate(async (user) => {
+exports.onUserCreated = functionsV1.auth.user().onCreate(async (user) => {
     try {
         await db.collection('users').doc(user.uid).set({
             email: user.email,
@@ -149,7 +155,7 @@ exports.onUserCreated = functions.auth.user().onCreate(async (user) => {
     }
 });
 // Cloud Function to handle coupon redemption
-exports.onCouponRedeemed = functions.firestore
+exports.onCouponRedeemed = functionsV1.firestore
     .document('redemptions/{redemptionId}')
     .onCreate(async (snap, context) => {
     try {

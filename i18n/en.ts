@@ -15,7 +15,11 @@ export default {
   customer: 'Customer',
   merchant: 'Merchant',
   admin: 'Admin',
-  
+
+  // App branding
+  save_more_spend_less: 'Save More, Spend Less',
+  hello: 'Hello',
+
   // Common
   search: 'Search',
   filter: 'Filter',
@@ -41,7 +45,7 @@ export default {
   success: 'Success',
   warning: 'Warning',
   info: 'Info',
-  
+
   // Customer
   home: 'Home',
   explore: 'Explore',
@@ -61,7 +65,7 @@ export default {
   yourPoints: 'Your Points',
   redeemPoints: 'Redeem Points',
   availableRewards: 'Available Rewards',
-  
+
   // Merchant
   dashboard: 'Dashboard',
   myCoupons: 'My Coupons',
@@ -81,7 +85,7 @@ export default {
   storeDetails: 'Store Details',
   manageStore: 'Manage Store',
   editStore: 'Edit Store',
-  
+
   // Admin
   adminDashboard: 'Admin Dashboard',
   userManagement: 'User Management',
@@ -97,13 +101,13 @@ export default {
   allCoupons: 'All Coupons',
   reportPeriod: 'Report Period',
   generateReport: 'Generate Report',
-  
+
   // Notifications
   newCouponNotification: 'New coupon available from {store}!',
   couponRedeemed: 'Coupon redeemed successfully!',
   pointsEarnedNotification: 'You earned {points} points!',
   couponExpiring: 'Your coupon from {store} expires soon!',
-  
+
   // Errors
   loginFailed: 'Login failed. Please check your credentials and try again.',
   registrationFailed: 'Registration failed. Please try again.',

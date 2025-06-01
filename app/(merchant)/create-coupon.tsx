@@ -1,38 +1,44 @@
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TextInput, 
-  TouchableOpacity, 
-  ScrollView, 
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
   ActivityIndicator,
   Switch,
-  Image
+  Image,
+  Alert
 } from 'react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { createThemedStyles } from '@/constants/theme';
 import { router } from 'expo-router';
-import { 
-  X, 
-  Calendar, 
-  Type, 
-  FileText, 
-  Percent, 
-  Tag, 
-  AlertTriangle 
+import {
+  X,
+  Calendar,
+  Type,
+  FileText,
+  Percent,
+  Tag,
+  AlertTriangle
 } from 'lucide-react-native';
 import MerchantHeader from '@/components/merchant/MerchantHeader';
 import DropdownSelect from '@/components/common/DropdownSelect';
 import DateTimePicker from '@/components/common/DateTimePicker';
 import { mockCategories } from '@/constants/mockData';
+import { createCoupon } from '../services/couponService';
+import { getStoreByOwnerId } from '../services/storeService';
+import { firestore } from '../config/firebase';
 
 export default function CreateCouponScreen() {
   const { theme } = useTheme();
   const { t } = useLanguage();
+  const { user } = useAuth();
   const styles = createThemedStyles(theme);
-  
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [discount, setDiscount] = useState('');
@@ -43,38 +49,95 @@ export default function CreateCouponScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [storeInfo, setStoreInfo] = useState<any>(null);
+
+  // Fetch store information
+  useEffect(() => {
+    const fetchStoreInfo = async () => {
+      if (user && user.id) {
+        try {
+          const store = await getStoreByOwnerId(user.id);
+          if (store) {
+            setStoreInfo(store);
+          } else {
+            Alert.alert(
+              "Store Not Found",
+              "You need to create a store before creating coupons.",
+              [{ text: "OK", onPress: () => router.replace('/(merchant)') }]
+            );
+          }
+        } catch (error) {
+          console.error('Error fetching store:', error);
+          Alert.alert("Error", "Failed to load store information");
+        }
+      }
+    };
+
+    fetchStoreInfo();
+  }, [user]);
 
   const validate = () => {
     const newErrors: {[key: string]: string} = {};
-    
+
     if (!title.trim()) newErrors.title = 'Title is required';
     if (!description.trim()) newErrors.description = 'Description is required';
     if (!discount.trim()) newErrors.discount = 'Discount is required';
-    else if (isNaN(Number(discount)) || Number(discount) <= 0) 
+    else if (isNaN(Number(discount)) || Number(discount) <= 0)
       newErrors.discount = 'Please enter a valid discount amount';
-    
+
     if (!category) newErrors.category = 'Category is required';
     if (!expiryDate) newErrors.expiryDate = 'Expiry date is required';
-    else if (expiryDate < new Date()) 
+    else if (expiryDate < new Date())
       newErrors.expiryDate = 'Expiry date must be in the future';
-    
+
     if (isMultipleUse && (!usageLimit.trim() || isNaN(Number(usageLimit)) || Number(usageLimit) <= 0))
       newErrors.usageLimit = 'Please enter a valid usage limit';
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async () => {
-    if (!validate()) return;
-    
+    if (!validate() || !storeInfo || !user) return;
+
     setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
+
+    try {
+      // Generate a random coupon code
+      const randomCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+      // Create coupon data
+      const couponData = {
+        code: `${randomCode}`,
+        title,
+        description,
+        type: 'percentage' as const,
+        value: Number(discount),
+        startDate: new Date(),
+        endDate: expiryDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        storeId: storeInfo.id,
+        storeName: storeInfo.name,
+        status: 'active' as const,
+        usageLimit: isMultipleUse ? Number(usageLimit) : 1,
+        usageCount: 0,
+        createdBy: user.id,
+        categories: [category]
+      };
+
+      // Create coupon in Firestore
+      const couponId = await createCoupon(couponData);
+
+      Alert.alert(
+        "Success",
+        "Coupon created successfully!",
+        [{ text: "OK", onPress: () => router.back() }]
+      );
+    } catch (error) {
+      console.error('Error creating coupon:', error);
+      Alert.alert("Error", "Failed to create coupon. Please try again.");
+    } finally {
       setIsLoading(false);
-      router.back();
-    }, 1500);
+    }
   };
 
   const onDateChange = (date: Date | null) => {
@@ -89,13 +152,13 @@ export default function CreateCouponScreen() {
 
   return (
     <View style={styles.container}>
-      <MerchantHeader 
-        title={t('createCoupon')} 
-        showBackButton 
-        onBackPress={() => router.back()} 
+      <MerchantHeader
+        title={t('createCoupon')}
+        showBackButton
+        onBackPress={() => router.back()}
       />
-      
-      <ScrollView 
+
+      <ScrollView
         style={createCouponStyles.scrollView}
         contentContainerStyle={createCouponStyles.contentContainer}
         keyboardShouldPersistTaps="handled"
@@ -108,7 +171,7 @@ export default function CreateCouponScreen() {
             </View>
             <TextInput
               style={[
-                styles.input, 
+                styles.input,
                 errors.title && { borderColor: theme.colors.error[500] }
               ]}
               value={title}
@@ -129,7 +192,7 @@ export default function CreateCouponScreen() {
               </Text>
             )}
           </View>
-          
+
           <View style={createCouponStyles.inputContainer}>
             <View style={createCouponStyles.inputLabel}>
               <FileText size={20} color={theme.colors.text} />
@@ -137,8 +200,8 @@ export default function CreateCouponScreen() {
             </View>
             <TextInput
               style={[
-                styles.input, 
-                createCouponStyles.textarea, 
+                styles.input,
+                createCouponStyles.textarea,
                 errors.description && { borderColor: theme.colors.error[500] }
               ]}
               value={description}
@@ -162,7 +225,7 @@ export default function CreateCouponScreen() {
               </Text>
             )}
           </View>
-          
+
           <View style={createCouponStyles.inputContainer}>
             <View style={createCouponStyles.inputLabel}>
               <Percent size={20} color={theme.colors.text} />
@@ -197,7 +260,7 @@ export default function CreateCouponScreen() {
               </Text>
             )}
           </View>
-          
+
           <View style={createCouponStyles.inputContainer}>
             <View style={createCouponStyles.inputLabel}>
               <Tag size={20} color={theme.colors.text} />
@@ -223,13 +286,13 @@ export default function CreateCouponScreen() {
               </Text>
             )}
           </View>
-          
+
           <View style={createCouponStyles.inputContainer}>
             <View style={createCouponStyles.inputLabel}>
               <Calendar size={20} color={theme.colors.text} />
               <Text style={styles.text}>{t('expiryDate')}</Text>
             </View>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={[
                 styles.input,
                 createCouponStyles.dateInput,
@@ -240,8 +303,8 @@ export default function CreateCouponScreen() {
               <Text style={[
                 expiryDate ? styles.text : styles.secondaryText
               ]}>
-                {expiryDate 
-                  ? expiryDate.toLocaleDateString() 
+                {expiryDate
+                  ? expiryDate.toLocaleDateString()
                   : 'Select expiry date'}
               </Text>
             </TouchableOpacity>
@@ -250,7 +313,7 @@ export default function CreateCouponScreen() {
                 {errors.expiryDate}
               </Text>
             )}
-            
+
             <DateTimePicker
               isVisible={showDatePicker}
               date={expiryDate || new Date()}
@@ -260,7 +323,7 @@ export default function CreateCouponScreen() {
               onCancel={() => setShowDatePicker(false)}
             />
           </View>
-          
+
           <View style={createCouponStyles.switchContainer}>
             <Text style={styles.text}>Allow multiple uses per customer</Text>
             <Switch
@@ -270,7 +333,7 @@ export default function CreateCouponScreen() {
               thumbColor={isMultipleUse ? theme.colors.primary[500] : theme.colors.neutral[100]}
             />
           </View>
-          
+
           {isMultipleUse && (
             <View style={createCouponStyles.inputContainer}>
               <View style={createCouponStyles.inputLabel}>
@@ -303,17 +366,19 @@ export default function CreateCouponScreen() {
               )}
             </View>
           )}
-          
+
           <View style={createCouponStyles.couponPreview}>
             <Text style={[styles.subtitle, createCouponStyles.previewTitle]}>Preview</Text>
             <View style={[createCouponStyles.previewCard, styles.shadow, { backgroundColor: theme.colors.card }]}>
               <View style={createCouponStyles.previewHeader}>
-                <Image 
-                  source={{ uri: 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }}
+                <Image
+                  source={{ uri: storeInfo?.logoUrl || 'https://images.pexels.com/photos/264636/pexels-photo-264636.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }}
                   style={createCouponStyles.previewLogo}
                 />
                 <View style={createCouponStyles.previewHeaderText}>
-                  <Text style={[styles.text, createCouponStyles.previewMerchant]}>Your Store Name</Text>
+                  <Text style={[styles.text, createCouponStyles.previewMerchant]}>
+                    {storeInfo?.name || 'Your Store Name'}
+                  </Text>
                   <Text style={[styles.secondaryText, createCouponStyles.previewCategory]}>
                     {category ? mockCategories.find(cat => cat.id === category)?.name : 'Category'}
                   </Text>
@@ -322,7 +387,7 @@ export default function CreateCouponScreen() {
                   <Text style={createCouponStyles.discountText}>{discount || '20'}%</Text>
                 </View>
               </View>
-              
+
               <View style={createCouponStyles.previewContent}>
                 <Text style={[styles.subtitle, createCouponStyles.previewCouponTitle]}>
                   {title || 'Your Coupon Title'}
@@ -331,7 +396,7 @@ export default function CreateCouponScreen() {
                   {description || 'Your coupon description will appear here.'}
                 </Text>
               </View>
-              
+
               <View style={[createCouponStyles.previewFooter, { borderTopColor: theme.colors.border }]}>
                 <Text style={styles.secondaryText}>
                   Expires: {expiryDate ? expiryDate.toLocaleDateString() : 'Select date'}
@@ -341,9 +406,9 @@ export default function CreateCouponScreen() {
           </View>
         </View>
       </ScrollView>
-      
+
       <View style={[createCouponStyles.footer, { backgroundColor: theme.colors.card }]}>
-        <TouchableOpacity 
+        <TouchableOpacity
           style={[styles.secondaryButton, createCouponStyles.cancelButton]}
           onPress={() => router.back()}
           disabled={isLoading}
@@ -351,8 +416,8 @@ export default function CreateCouponScreen() {
           <X size={20} color={theme.colors.text} />
           <Text style={[styles.secondaryButtonText, { marginLeft: 8 }]}>{t('cancel')}</Text>
         </TouchableOpacity>
-        
-        <TouchableOpacity 
+
+        <TouchableOpacity
           style={[styles.button, createCouponStyles.createButton, { opacity: isLoading ? 0.7 : 1 }]}
           onPress={handleSubmit}
           disabled={isLoading}

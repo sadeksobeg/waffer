@@ -1,0 +1,23 @@
+diff --git a/node_modules/react-native-pager-view/android/build.gradle b/node_modules/react-native-pager-view/android/build.gradle
+index b46c366..58afe13 100644
+--- a/node_modules/react-native-pager-view/android/build.gradle
++++ b/node_modules/react-native-pager-view/android/build.gradle
+@@ -3,12 +3,17 @@ buildscript {
+   def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['PagerView_kotlinVersion']
+ 
+   repositories {
++    // Mirrors for better connectivity
++    maven { url "https://maven.aliyun.com/repository/google" }
++    maven { url "https://maven.aliyun.com/repository/central" }
++    maven { url "https://repo.huaweicloud.com/repository/maven/" }
++    // Must come first so AGP is found:
+     google()
+     mavenCentral()
+   }
+ 
+   dependencies {
+-    classpath 'com.android.tools.build:gradle:4.2.1'
++    classpath 'com.android.tools.build:gradle:8.2.2'
+     // noinspection DifferentKotlinGradleVersion
+     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+   }

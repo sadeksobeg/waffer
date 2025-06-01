@@ -1,0 +1,67 @@
+{
+  "title": "User Management",
+  "description": "Manage all users, merchants, and administrators of the platform.",
+  "tabs": {
+    "customers": "Customers",
+    "merchants": "Merchants",
+    "admins": "Administrators"
+  },
+  "actions": {
+    "addUser": "Add User",
+    "import": "Import",
+    "export": "Export"
+  },
+  "table": {
+    "name": "Name",
+    "email": "Email",
+    "status": "Status",
+    "joinDate": "Join Date",
+    "lastLogin": "Last Login",
+    "storeName": "Store Name"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "userTypes": {
+    "customer": "Customer",
+    "merchant": "Merchant",
+    "admin": "Administrator"
+  },
+  "form": {
+    "addTitle": "Add {{type}}",
+    "editTitle": "Edit {{type}}",
+    "name": "Full Name",
+    "email": "Email Address",
+    "password": "Password",
+    "newPassword": "New Password",
+    "passwordHint": "Leave empty to keep current password",
+    "status": "Status",
+    "storeName": "Store Name"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "emailInvalid": "Please enter a valid email address",
+    "passwordLength": "Password must be at least 6 characters",
+    "storeNameRequired": "Store name is required"
+  },
+  "deleteDialog": {
+    "title": "Delete User",
+    "content": "Are you sure you want to delete {{name}}? This action cannot be undone."
+  },
+  "import": {
+    "title": "Import Users",
+    "description": "Upload a CSV or Excel file to import multiple users at once.",
+    "instructions": "The file should contain columns for name, email, role, and status. Passwords will be auto-generated and sent to users via email.",
+    "dropzone": "Drag and drop file here or click to browse",
+    "fileTypes": "Supported formats: .csv, .xlsx",
+    "selectedFile": "Selected File",
+    "upload": "Upload",
+    "successMessage": "Users imported successfully with some errors",
+    "summary": "Import Summary",
+    "successCount": "Successfully imported: {{count}} users",
+    "failedCount": "Failed to import: {{count}} users",
+    "errors": "Errors",
+    "importAnother": "Import Another File"
+  }
+}

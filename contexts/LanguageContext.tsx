@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { I18nManager } from 'react-native';
 import * as Localization from 'expo-localization';
-import { I18n } from 'i18n-js';
+import I18n from 'i18n-js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import en from '@/i18n/en';
 import ar from '@/i18n/ar';
@@ -9,11 +9,12 @@ import ar from '@/i18n/ar';
 // Define the languages
 const translations = { en, ar };
 
-// Create the i18n instance
-const i18n = new I18n(translations);
+// Configure i18n
+I18n.translations = translations;
+I18n.defaultLocale = 'en';
 
-// Set the default locale
-i18n.defaultLocale = 'en';
+// Use the configured I18n instance
+const i18n = I18n;
 
 // Define language context types
 type LanguageContextType = {
@@ -43,7 +44,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       try {
         // Try to get saved language
         const savedLanguage = await AsyncStorage.getItem(LANGUAGE_KEY);
-        
+
         if (savedLanguage) {
           await changeLanguage(savedLanguage);
         } else {
@@ -71,14 +72,14 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       // Set the locale
       setLocale(language);
       i18n.locale = language;
-      
+
       // Set RTL for Arabic
       const isRTL = language === 'ar';
-      
+
       // Handle RTL layout changes
       I18nManager.allowRTL(isRTL);
       I18nManager.forceRTL(isRTL);
-      
+
       // Save to storage
       await AsyncStorage.setItem(LANGUAGE_KEY, language);
     } catch (error) {
@@ -92,12 +93,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   return (
-    <LanguageContext.Provider 
-      value={{ 
-        locale, 
-        t, 
+    <LanguageContext.Provider
+      value={{
+        locale,
+        t,
         changeLanguage,
-        isRTL: I18nManager.isRTL 
+        isRTL: I18nManager.isRTL
       }}
     >
       {children}

@@ -8,27 +8,113 @@ import { ChevronRight, Search, TrendingUp, Clock, MapPin, Tag, Store } from 'luc
 import CategoryList from '@/components/customer/CategoryList';
 import CouponCard from '@/components/customer/CouponCard';
 import SearchBar from '@/components/common/SearchBar';
+import AppHeader from '@/components/ui/AppHeader';
 import { mockCoupons, mockCategories, mockStores } from '@/constants/mockData';
+import { getCoupons } from '../services/couponService';
+import { router } from 'expo-router';
 
 export default function HomeScreen() {
   const { theme } = useTheme();
   const { t } = useLanguage();
   const { user } = useAuth();
   const styles = createThemedStyles(theme);
-  
+
   const [refreshing, setRefreshing] = useState(false);
-  const [featuredCoupons, setFeaturedCoupons] = useState(mockCoupons.slice(0, 5));
+  const [featuredCoupons, setFeaturedCoupons] = useState([]);
   const [trendingStores, setTrendingStores] = useState(mockStores.slice(0, 4));
-  const [expiringCoupons, setExpiringCoupons] = useState(
-    [...mockCoupons].sort((a, b) => new Date(a.expiryDate).getTime() - new Date(b.expiryDate).getTime()).slice(0, 5)
-  );
+  const [expiringCoupons, setExpiringCoupons] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load real coupons from Firebase
+  const loadCoupons = async () => {
+    try {
+      console.log('🔄 Loading coupons from Firebase...');
+
+      // Add a small delay to ensure Firebase is fully initialized
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      const result = await getCoupons(null, 20, { status: 'active' });
+      const coupons = result.coupons;
+
+      console.log(`✅ Loaded ${coupons.length} coupons from Firebase`);
+
+      if (coupons.length === 0) {
+        console.log('📦 No coupons found in Firebase, using mock data');
+        setFeaturedCoupons(mockCoupons.slice(0, 5));
+        setExpiringCoupons(mockCoupons.slice(0, 5));
+        return;
+      }
+
+      // Set featured coupons (first 5)
+      setFeaturedCoupons(coupons.slice(0, 5));
+
+      // Set expiring coupons (sorted by expiry date) - handle different date formats
+      const sortedByExpiry = [...coupons].sort((a, b) => {
+        try {
+          let aDate, bDate;
+
+          // Handle different date formats from Firebase/Admin dashboard
+          if (a.validTo?.seconds && typeof a.validTo.seconds === 'number') {
+            const date = new Date(a.validTo.seconds * 1000);
+            aDate = !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+          } else if (a.endDate?.seconds && typeof a.endDate.seconds === 'number') {
+            const date = new Date(a.endDate.seconds * 1000);
+            aDate = !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+          } else if (a.endDate) {
+            const date = new Date(a.endDate);
+            aDate = !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+          } else if (a.expiryDate) {
+            const date = new Date(a.expiryDate);
+            aDate = !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+          } else {
+            aDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // Default to 30 days from now
+          }
+
+          if (b.validTo?.seconds && typeof b.validTo.seconds === 'number') {
+            const date = new Date(b.validTo.seconds * 1000);
+            bDate = !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+          } else if (b.endDate?.seconds && typeof b.endDate.seconds === 'number') {
+            const date = new Date(b.endDate.seconds * 1000);
+            bDate = !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+          } else if (b.endDate) {
+            const date = new Date(b.endDate);
+            bDate = !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+          } else if (b.expiryDate) {
+            const date = new Date(b.expiryDate);
+            bDate = !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+          } else {
+            bDate = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // Default to 30 days from now
+          }
+
+          return aDate.getTime() - bDate.getTime();
+        } catch (error) {
+          console.warn('Date parsing error:', error);
+          return 0;
+        }
+      });
+      setExpiringCoupons(sortedByExpiry.slice(0, 5));
+
+    } catch (error) {
+      console.error('❌ Error loading coupons:', error);
+      // Fallback to mock data if Firebase fails
+      console.log('📦 Using mock data as fallback');
+      setFeaturedCoupons(mockCoupons.slice(0, 5));
+      setExpiringCoupons(mockCoupons.slice(0, 5));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Load coupons on component mount
+  useEffect(() => {
+    loadCoupons();
+  }, []);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-    // Simulate a data refresh
-    setTimeout(() => {
+    loadCoupons().finally(() => {
       setRefreshing(false);
-    }, 1000);
+    });
   }, []);
 
   const renderSectionHeader = (title: string, onPress?: () => void) => (
@@ -44,9 +130,13 @@ export default function HomeScreen() {
   );
 
   const renderStoreItem = ({ item }: any) => (
-    <TouchableOpacity 
+    <TouchableOpacity
       style={[homeStyles.storeCard, styles.shadow, { backgroundColor: theme.colors.card }]}
       activeOpacity={0.7}
+      onPress={() => {
+        // Navigate to explore page with store filter
+        router.push('/(tabs)/explore');
+      }}
     >
       <Image source={{ uri: item.image }} style={homeStyles.storeImage} />
       <Text style={[styles.text, homeStyles.storeName]} numberOfLines={1}>{item.name}</Text>
@@ -58,32 +148,42 @@ export default function HomeScreen() {
   );
 
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
-      <View style={homeStyles.header}>
-        <View style={homeStyles.greeting}>
-          <Text style={styles.text}>
-            {t('hello')}, {user?.name?.split(' ')[0] || 'Guest'}
-          </Text>
-          {user?.role === 'customer' && user?.points !== undefined && (
-            <View style={homeStyles.pointsBadge}>
-              <Text style={homeStyles.pointsText}>{user.points} {t('points')}</Text>
-            </View>
-          )}
-        </View>
-        <SearchBar placeholder={t('search')} />
-      </View>
+    <View style={styles.container}>
+      {/* Header with Waffer Logo */}
+      <AppHeader
+        showLogo={true}
+        showNotifications={true}
+        showProfile={true}
+        onNotificationPress={() => {}}
+        onProfilePress={() => {}}
+      />
 
-      <CategoryList 
-        categories={mockCategories} 
+      <ScrollView
+        style={{ flex: 1 }}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <View style={homeStyles.header}>
+          <View style={homeStyles.greeting}>
+            <Text style={styles.text}>
+              {t('hello')}, {user?.name?.split(' ')[0] || 'Guest'}
+            </Text>
+            {user?.role === 'customer' && user?.points !== undefined && (
+              <View style={homeStyles.pointsBadge}>
+                <Text style={homeStyles.pointsText}>{user.points} {t('points')}</Text>
+              </View>
+            )}
+          </View>
+          <SearchBar placeholder={t('search')} />
+        </View>
+
+      <CategoryList
+        categories={mockCategories}
         containerStyle={homeStyles.categoriesContainer}
       />
 
-      {renderSectionHeader('featuredCoupons', () => {})}
+      {renderSectionHeader('featuredCoupons', () => router.push('/(tabs)/explore'))}
       <FlatList
         data={featuredCoupons}
         renderItem={({ item }) => <CouponCard coupon={item} />}
@@ -92,7 +192,7 @@ export default function HomeScreen() {
         contentContainerStyle={homeStyles.horizontalListContent}
       />
 
-      {renderSectionHeader('trendingStores', () => {})}
+      {renderSectionHeader('trendingStores', () => router.push('/(tabs)/explore'))}
       <FlatList
         data={trendingStores}
         renderItem={renderStoreItem}
@@ -101,7 +201,7 @@ export default function HomeScreen() {
         contentContainerStyle={homeStyles.horizontalListContent}
       />
 
-      {renderSectionHeader('expiringCoupons', () => {})}
+      {renderSectionHeader('expiringCoupons', () => router.push('/(tabs)/explore'))}
       <FlatList
         data={expiringCoupons}
         renderItem={({ item }) => <CouponCard coupon={item} showExpiry />}
@@ -110,8 +210,9 @@ export default function HomeScreen() {
         contentContainerStyle={homeStyles.horizontalListContent}
       />
 
-      <View style={homeStyles.spacer} />
-    </ScrollView>
+        <View style={homeStyles.spacer} />
+      </ScrollView>
+    </View>
   );
 }
 

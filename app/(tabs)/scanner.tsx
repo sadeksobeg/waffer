@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { createThemedStyles } from '@/constants/theme';
@@ -9,11 +8,19 @@ import CouponRedeemModal from '@/components/customer/CouponRedeemModal';
 import { mockCoupons } from '@/constants/mockData';
 import { Platform } from 'react-native';
 
+// Import barcode scanner conditionally to handle potential missing module
+let BarCodeScanner: any = null;
+try {
+  BarCodeScanner = require('expo-barcode-scanner').BarCodeScanner;
+} catch (error) {
+  console.log('Barcode scanner module not available:', error);
+}
+
 export default function ScannerScreen() {
   const { theme } = useTheme();
   const { t } = useLanguage();
   const styles = createThemedStyles(theme);
-  
+
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
   const [scanning, setScanning] = useState(false);
@@ -27,8 +34,20 @@ export default function ScannerScreen() {
   useEffect(() => {
     if (!isWeb) {
       (async () => {
-        const { status } = await BarCodeScanner.requestPermissionsAsync();
-        setHasPermission(status === 'granted');
+        try {
+          if (BarCodeScanner && BarCodeScanner.requestPermissionsAsync) {
+            const { status } = await BarCodeScanner.requestPermissionsAsync();
+            setHasPermission(status === 'granted');
+          } else {
+            // Barcode scanner not available, use simulation mode
+            console.log('Barcode scanner not available, using simulation mode');
+            setHasPermission(true);
+          }
+        } catch (error) {
+          console.log('Error requesting camera permissions:', error);
+          // Fall back to simulation mode
+          setHasPermission(true);
+        }
       })();
     } else {
       // Automatically grant permission on web
@@ -39,15 +58,15 @@ export default function ScannerScreen() {
   const handleScan = ({ data }: { data: string }) => {
     setScanned(true);
     setScanning(false);
-    
+
     try {
       // Try to parse the QR code data
       const parsedData = JSON.parse(data);
-      
+
       if (parsedData?.couponId) {
         // Find the coupon in our mock data
         const coupon = mockCoupons.find(c => c.id === parsedData.couponId);
-        
+
         if (coupon) {
           setCouponData(coupon);
           setShowModal(true);
@@ -68,7 +87,7 @@ export default function ScannerScreen() {
     setScanning(true);
     setScanned(false);
     setError(null);
-    
+
     // Simulate processing time
     setTimeout(() => {
       // Random pick a coupon
@@ -84,7 +103,7 @@ export default function ScannerScreen() {
       </View>
     );
   }
-  
+
   if (hasPermission === false) {
     return (
       <View style={[styles.centerContainer, scannerStyles.permissionContainer]}>
@@ -103,10 +122,10 @@ export default function ScannerScreen() {
         <Text style={styles.title}>{t('scanQR')}</Text>
         <Text style={styles.text}>Scan a coupon QR code to redeem it</Text>
       </View>
-      
+
       <View style={scannerStyles.scannerContainer}>
-        {isWeb ? (
-          // Web mockup of a scanner
+        {isWeb || !BarCodeScanner ? (
+          // Web mockup of a scanner or fallback when native scanner is not available
           <View style={scannerStyles.webScanner}>
             {scanning ? (
               <ActivityIndicator size="large" color={theme.colors.primary[500]} />
@@ -123,7 +142,7 @@ export default function ScannerScreen() {
             />
           )
         )}
-        
+
         {/* Scanner overlay */}
         <View style={scannerStyles.scannerOverlay}>
           <View style={scannerStyles.scannerCorner} />
@@ -132,22 +151,22 @@ export default function ScannerScreen() {
           <View style={scannerStyles.scannerCorner} />
         </View>
       </View>
-      
+
       {error && (
         <View style={[scannerStyles.errorContainer, { backgroundColor: theme.colors.error[100] }]}>
           <Text style={[scannerStyles.errorText, { color: theme.colors.error[700] }]}>{error}</Text>
         </View>
       )}
-      
+
       <View style={scannerStyles.actionsContainer}>
-        {isWeb ? (
-          <TouchableOpacity 
+        {isWeb || !BarCodeScanner ? (
+          <TouchableOpacity
             style={[
-              scanning ? scannerStyles.cancelButton : scannerStyles.scanButton, 
-              { 
+              scanning ? scannerStyles.cancelButton : scannerStyles.scanButton,
+              {
                 backgroundColor: scanning ? theme.colors.error[500] : theme.colors.primary[500],
               }
-            ]} 
+            ]}
             onPress={scanning ? () => setScanning(false) : simulateScan}
           >
             {scanning ? (
@@ -164,8 +183,8 @@ export default function ScannerScreen() {
           </TouchableOpacity>
         ) : (
           scanned && (
-            <TouchableOpacity 
-              style={[scannerStyles.scanButton, { backgroundColor: theme.colors.primary[500] }]} 
+            <TouchableOpacity
+              style={[scannerStyles.scanButton, { backgroundColor: theme.colors.primary[500] }]}
               onPress={() => setScanned(false)}
             >
               <RotateCcw size={20} color={theme.colors.white} />
@@ -174,9 +193,9 @@ export default function ScannerScreen() {
           )
         )}
       </View>
-      
+
       {couponData && (
-        <CouponRedeemModal 
+        <CouponRedeemModal
           isVisible={showModal}
           coupon={couponData}
           onClose={() => {

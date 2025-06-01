@@ -1,0 +1,37 @@
+{
+  "title": "Analytics",
+  "description": "View performance metrics and insights for your coupon platform.",
+  "timeRange": "Time Range",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "timeRanges": {
+    "7days": "Last 7 Days",
+    "30days": "Last 30 Days",
+    "90days": "Last 90 Days",
+    "6months": "Last 6 Months",
+    "1year": "Last Year",
+    "custom": "Custom Range"
+  },
+  "stats": {
+    "totalCoupons": "Total Coupons",
+    "totalRedemptions": "Total Redemptions",
+    "activeUsers": "Active Users",
+    "totalSavings": "Total Savings"
+  },
+  "charts": {
+    "redemptionTrend": "Redemption Trend",
+    "userActivity": "User Activity",
+    "storePerformance": "Store Performance"
+  },
+  "tables": {
+    "topCoupons": "Top Performing Coupons"
+  },
+  "table": {
+    "coupon": "Coupon",
+    "merchant": "Merchant",
+    "issuances": "Issuances",
+    "redemptions": "Redemptions",
+    "redemptionRate": "Redemption Rate",
+    "revenue": "Revenue"
+  }
+}

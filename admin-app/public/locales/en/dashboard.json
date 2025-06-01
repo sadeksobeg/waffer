@@ -1,0 +1,17 @@
+{
+  "title": "Dashboard",
+  "welcome": "Welcome, {{name}}",
+  "overview": "Here's an overview of your platform's performance.",
+  "stats": {
+    "totalUsers": "Total Users",
+    "totalMerchants": "Total Merchants",
+    "totalCoupons": "Total Coupons",
+    "totalRedemptions": "Total Redemptions"
+  },
+  "charts": {
+    "redemptionTrend": "Redemption Trend"
+  },
+  "tables": {
+    "recentCoupons": "Recent Coupons"
+  }
+}

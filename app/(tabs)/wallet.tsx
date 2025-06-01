@@ -1,25 +1,50 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, FlatList, ActivityIndicator } from 'react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { createThemedStyles } from '@/constants/theme';
 import { Wallet, Gift, ChevronRight, Clock } from 'lucide-react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { TabView, SceneMap } from 'react-native-tab-view';
+import CustomTabBar from '@/components/common/CustomTabBar';
 import CouponCard from '@/components/customer/CouponCard';
 import PointsHistoryItem from '@/components/customer/PointsHistoryItem';
 import RewardCard from '@/components/customer/RewardCard';
 import { mockCoupons, mockPointsHistory, mockRewards } from '@/constants/mockData';
+import { getSavedCoupons } from '@/app/services/couponService';
 
 export default function WalletScreen() {
   const { theme } = useTheme();
   const { t } = useLanguage();
   const { user } = useAuth();
   const styles = createThemedStyles(theme);
-  
-  // Filter mock coupons for saved and used
-  const savedCoupons = mockCoupons.slice(0, 3);
-  const usedCoupons = mockCoupons.slice(3, 5);
+
+  const [savedCoupons, setSavedCoupons] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const usedCoupons = mockCoupons.slice(3, 5); // Keep mock for used coupons for now
+
+  // Load saved coupons from Firebase
+  useEffect(() => {
+    const loadSavedCoupons = async () => {
+      if (user?.uid) {
+        try {
+          setLoading(true);
+          const coupons = await getSavedCoupons(user.uid);
+          setSavedCoupons(coupons);
+        } catch (error) {
+          console.error('Error loading saved coupons:', error);
+          // Fallback to mock data
+          setSavedCoupons(mockCoupons.slice(0, 3));
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    loadSavedCoupons();
+  }, [user?.uid]);
 
   const [index, setIndex] = useState(0);
   const [routes] = useState([
@@ -29,37 +54,37 @@ export default function WalletScreen() {
 
   const CouponsRoute = () => {
     const [activeTab, setActiveTab] = useState('saved');
-    
+
     return (
       <View style={walletStyles.tabContent}>
         <View style={walletStyles.couponsHeader}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
-              walletStyles.couponTypeButton, 
+              walletStyles.couponTypeButton,
               activeTab === 'saved' && { backgroundColor: theme.colors.primary[500] }
-            ]} 
+            ]}
             onPress={() => setActiveTab('saved')}
           >
-            <Text 
+            <Text
               style={[
-                walletStyles.couponTypeText, 
+                walletStyles.couponTypeText,
                 { color: activeTab === 'saved' ? theme.colors.white : theme.colors.text }
               ]}
             >
               {t('savedCoupons')}
             </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             style={[
-              walletStyles.couponTypeButton, 
+              walletStyles.couponTypeButton,
               activeTab === 'used' && { backgroundColor: theme.colors.primary[500] }
-            ]} 
+            ]}
             onPress={() => setActiveTab('used')}
           >
-            <Text 
+            <Text
               style={[
-                walletStyles.couponTypeText, 
+                walletStyles.couponTypeText,
                 { color: activeTab === 'used' ? theme.colors.white : theme.colors.text }
               ]}
             >
@@ -67,9 +92,14 @@ export default function WalletScreen() {
             </Text>
           </TouchableOpacity>
         </View>
-        
+
         {activeTab === 'saved' ? (
-          savedCoupons.length > 0 ? (
+          loading ? (
+            <View style={styles.centerContainer}>
+              <ActivityIndicator size="large" color={theme.colors.primary[500]} />
+              <Text style={[styles.text, { marginTop: 16 }]}>Loading saved coupons...</Text>
+            </View>
+          ) : savedCoupons.length > 0 ? (
             <FlatList
               data={savedCoupons}
               renderItem={({ item }) => <CouponCard coupon={item} inWallet />}
@@ -80,6 +110,9 @@ export default function WalletScreen() {
           ) : (
             <View style={styles.centerContainer}>
               <Text style={styles.text}>No saved coupons</Text>
+              <Text style={[styles.secondaryText, { marginTop: 8, textAlign: 'center' }]}>
+                Save coupons from the explore page to see them here
+              </Text>
             </View>
           )
         ) : (
@@ -103,7 +136,7 @@ export default function WalletScreen() {
 
   const PointsRoute = () => {
     const [activeTab, setActiveTab] = useState('history');
-    
+
     return (
       <View style={walletStyles.tabContent}>
         <View style={walletStyles.pointsHeader}>
@@ -112,35 +145,35 @@ export default function WalletScreen() {
             <Text style={walletStyles.pointsValue}>{user?.points || 0}</Text>
           </View>
         </View>
-        
+
         <View style={walletStyles.couponsHeader}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
-              walletStyles.couponTypeButton, 
+              walletStyles.couponTypeButton,
               activeTab === 'history' && { backgroundColor: theme.colors.primary[500] }
-            ]} 
+            ]}
             onPress={() => setActiveTab('history')}
           >
-            <Text 
+            <Text
               style={[
-                walletStyles.couponTypeText, 
+                walletStyles.couponTypeText,
                 { color: activeTab === 'history' ? theme.colors.white : theme.colors.text }
               ]}
             >
               {t('pointsHistory')}
             </Text>
           </TouchableOpacity>
-          
-          <TouchableOpacity 
+
+          <TouchableOpacity
             style={[
-              walletStyles.couponTypeButton, 
+              walletStyles.couponTypeButton,
               activeTab === 'rewards' && { backgroundColor: theme.colors.primary[500] }
-            ]} 
+            ]}
             onPress={() => setActiveTab('rewards')}
           >
-            <Text 
+            <Text
               style={[
-                walletStyles.couponTypeText, 
+                walletStyles.couponTypeText,
                 { color: activeTab === 'rewards' ? theme.colors.white : theme.colors.text }
               ]}
             >
@@ -148,7 +181,7 @@ export default function WalletScreen() {
             </Text>
           </TouchableOpacity>
         </View>
-        
+
         {activeTab === 'history' ? (
           <FlatList
             data={mockPointsHistory}
@@ -180,20 +213,20 @@ export default function WalletScreen() {
       <View style={walletStyles.header}>
         <Text style={styles.title}>{t('wallet')}</Text>
       </View>
-      
+
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={{ width: 100 }}
         renderTabBar={props => (
-          <TabBar
+          <CustomTabBar
             {...props}
             style={{ backgroundColor: theme.colors.card }}
             indicatorStyle={{ backgroundColor: theme.colors.primary[500] }}
             activeColor={theme.colors.primary[500]}
             inactiveColor={theme.colors.secondaryText}
-            labelStyle={{ 
+            labelStyle={{
               fontFamily: theme.fontFamily.medium,
               textTransform: 'none',
             }}
